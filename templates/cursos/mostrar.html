@@ -11,19 +11,17 @@
     <div id="cuerpo" class="container">
         <h1>Cursos Activos</h1>
         <br>
-        
-        
         <table class="table table-striped">
+          <h3>disponibles</h3>
           <thead>
             <tr>
               <th scope="col">id</th>
               <th scope="col">Nombre</th>
               <th scope="col">Descripcion</th>
               <th scope="col">Fecha</th>
-              <th scope="col">contador</th>
+              <th scope="col">inscritos</th>
               <th scope="col">Cupos</th>
               <th></th>
-           
             </tr>
           </thead>
           <tbody>
@@ -36,21 +34,41 @@
               <td>{{curso.contador}}</td>
               <td>{{curso.capacidad}}</td>
               <td><a href="{% url 'inscribirAlumno' idCurso=curso.id %}">inscribirme</a></td>
-            
             </tr>
             {%endfor%}
             
           </tbody>
         </table>
-        <ul>
-          <li>mis cursos inscrito</li>
-          {% for curso in misCursos%}
-          <li>{{curso.participante.nombre}} / curso:{{curso.taller.nombre}}</li>
-          
-          {%endfor%}
-        </ul>
+        {%if request.session.acceso == "0" %}
+        <table class="table table-striped">
+          <h3>ya inscritos</h3>
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Lugar</th>
+              <th scope="col">Fecha</th>
+             
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {%for inscripcion in misCursos %}
+            <tr>
+              <th scope="row">{{inscripcion.id}}</th>
+              <td><a href="{% url 'descripcionCurso' idCurso=inscripcion.taller.id %}">{{inscripcion.taller.nombre}}</a></td>
+              <td>{{inscripcion.taller.descripcion}}</td>
+              <td>{{inscripcion.taller.ubicacion}}</td>
+              <td>{{inscripcion.taller.fecha}}</td>
+              
+              <td><a href="{% url 'eliminarInscripcion' idInscripcion=inscripcion.id %}">eliminar inscripcion</a></td>
+            </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+        {%endif%}
       </div>
-
       </div>
     {%endblock%} {# contenido principal#}
   </body>

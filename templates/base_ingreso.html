@@ -14,39 +14,47 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'discriminador' %}">Welcome (id:{{request.session.id}}){{request.session.nombre}}/acceso:{{request.session.acceso}}</a>
+        <a class="navbar-brand" href="{% url 'discriminador' %}">Home</a><a class="navbar-brand" href="">  bienvenido {{request.session.nombre}} </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            
+            {%if request.session.acceso == "0" %}
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'misCursos' %}">Mis Cursos</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'mostrarCurso' %}">Cursos Disponibles</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'misCursos' %}">Chatea</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'miCalendario' %}">mi calendario</a>
+            </li>
+            {%endif%}
+            {%if request.session.acceso == "1" %}
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'crearCurso' %}">Crear Curso</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'mostrarCurso' %}">Cursos</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'mostrar' %}">inscritos por Curso</a>
+            </li>
+            {%endif%}
+            {%if request.session.acceso == "9" %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'registrarProfesor' %}">registrarProfesor</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'adminCurso' %}">adminCursos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'inscribirse' %}">inscribirse</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'inscribirse' %}">inscripciones</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'mostrar' %}">inscritos Totales</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'mostrar' %}">inscritos por Curso</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'registrarProfesor' %}">registrarProfesor</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'miCalendario' %}">mi calendario</a>
-            </li>
+            
+            {%endif%}
           </ul>
-           
               <a id="logout" class="nav-link active" href="{% url 'logout' %}"  aria-disabled="true">logout</a>
            
         </div>

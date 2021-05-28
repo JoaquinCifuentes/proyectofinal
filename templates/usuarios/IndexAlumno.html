@@ -11,15 +11,15 @@
     <div id="inscripcion" class="container flex">
       <h4>Hola alumno {{request.session.nombre}}</h4>
       <ul>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{% url 'misCursos' %}">Mis Cursos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{% url 'inscribirse' %}">inscribirse</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{% url 'mostrar' %}">mostrar</a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'mostrarCurso' %}">Cursos Disponibles</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'misCursos' %}">Chatea</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'miCalendario' %}">mi calendario</a>
+        </li>
     </ul>
   </div>
 

@@ -10,28 +10,26 @@
     {%block contenido%} 
 
     <h1>mis cursos</h1>
-    <h3>cursos en los que estoy inscrito</h3>
+    <h6>ahora puedes chatear en los cursos en que te has inscrito</h6>
         <br>
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">Curso</th>
-              <th scope="col">confirmado </th>
+              <th scope="col">Acceso Chat</th>
+              <th scope="col">Nombre Curso</th>
               <th scope="col">fecha</th>
               <th scope="col">ubicacion</th>
               <th></th>
-              
             </tr>
           </thead>
           <tbody>
           {%for inscripcion in misCursos %}
           <tr>
+            <td><a href="/chat/{{inscripcion.taller.id}}">chat</a></td>
             <td>{{inscripcion.taller.nombre}}</td>
-            <td>{{inscripcion.confirmado}}</td>
             <td>{{inscripcion.taller.fecha}}</td>
             <td>{{inscripcion.taller.ubicacion}}</td>
             <th><a href="{% url 'eliminarInscripcion' idInscripcion=inscripcion.id %}">eliminar inscripcion</a></th>
-            
           </tr>
         {%endfor%}
         </tbody>

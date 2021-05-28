@@ -15,13 +15,14 @@
             <li>{{curso.fecha}}</li>
             <li>{{curso.ubicacion}}</li>
         </ul>
-        <br> {% if access == 9 or access == 2 %}
+        <br> {% if access == 9 or access == 1 %}
         <h5>Archivos:</h5>
         <!-- agregar if de administrador -->
         <form action="uploadFile/{{curso.id}}" enctype="multipart/form-data" method="POST">
             {% csrf_token %}
             <input id="id_archivo" type="file" name="archivo">
             <input class="btn btn-primary" type="submit" value="Subir">
+            <a class="nav-link active" aria-current="page" href="{% url 'mostrar' %}">Volver</a>
         </form>
         {% endif %}
         <br>

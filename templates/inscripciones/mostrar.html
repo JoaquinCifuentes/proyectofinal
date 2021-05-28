@@ -9,7 +9,7 @@
   <body>
   {%block contenido%} 
     <div id="cuerpo" class="container">
-        <h1>inscritos en cursos (confirmados)</h1>
+        <h1>inscritos en cursos</h1>
         <br>
         <table class="table table-striped">
           <thead>
@@ -24,11 +24,10 @@
           <tbody>
           {%for inscrito in inscripcionesTotales %}
             <tr>
-              <td>{{inscrito.id}}{{inscrito.taller.nombre}}</td>
+              <td><a href="{% url 'descripcionCurso' idCurso=inscrito.taller.id %}">{{inscrito.taller.nombre}}</a></td>
               <td>{{inscrito.taller.descripcion}}</td>
               <td>{{inscrito.participante.nombre}}{{inscrito.participante.apellido}}</td>
-              <th><a href="{% url 'eliminarInscripcion' idInscripcion=inscrito.id %}">eliminar</a></th>
-              
+              <th><a href="{% url 'eliminarInscripcion' idInscripcion=inscrito.id %}">eliminar inscripcion</a></th>
             </tr>
           {%endfor%}
           </tbody>

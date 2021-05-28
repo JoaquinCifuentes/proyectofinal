@@ -1,0 +1,64 @@
+{%extends 'base_ingreso.html'%} {%load static%}
+
+{%block title%} {{misCursos}}{%endblock%}</title>
+
+    {%block favicon%}
+    <link rel="shortcut icon" href="{% static 'master/img/turtle.ico'%}" />
+    {%endblock%}
+  </head>
+  <body>
+    {%block contenido%} 
+
+    <h1> mis cursos </h1>
+   <br>
+        <br>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Curso </th>
+              <th scope="col">descripcion</th>
+              <th scope="col">fecha</th>
+              <th scope="col">ubicacion</th>
+              <th></th>
+              
+            </tr>
+          </thead>
+          <tbody>
+          {%for inscripcion in misCursos %}
+          <tr>
+            <td>{{inscripcion.taller.nombre}} </td>
+            <td>{{inscripcion.taller.descripcion}}</td>
+            <td>{{inscripcion.taller.fecha}}</td>
+            <td>{{inscripcion.taller.ubicacion}}</td>
+            <th><a href="{% url 'eliminarInscripcion' idInscripcion=inscripcion.id %}">eliminar</a></th>
+            
+          </tr>
+         
+        {%endfor%}
+        </tbody>
+      </table>
+    </div>
+
+    <div id="inscripcion" class="container flex">
+      <h4>Chat de {{nombreCurso}}</h4>
+      <p>
+        {% for chat in chats reversed%}
+          {{chat.participante.nombre}}: {{chat.mensaje}}<br>
+        {% endfor %}
+      </p>
+
+        <form action="/chat/{{cursoId}}" method="POST">
+          <div class="table">{%csrf_token%} {{formularioChat.as_ul}}</div>
+          <button class="btn btn-outline-secondary ">Enviar</button>
+          <a class="btn btn-outline-secondary " aria-current="page" href="{% url 'misCursos' %}">cerrar</a>
+        </form>
+
+    </div>
+
+
+
+  {%endblock%} {# contenido principal#}
+  
+
+  </body>
+</html>

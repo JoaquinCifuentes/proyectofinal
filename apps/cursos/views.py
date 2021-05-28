@@ -18,7 +18,7 @@ def index(request):
     return HttpResponse("bienvenido a cursos")
 
 def crear(request):
-    if request.session["acceso"] == '9':
+    if request.session["acceso"] != '0':
         if request.method == "POST":
             formulario = FormularioCurso(request.POST)
             if formulario.is_valid():
@@ -32,7 +32,8 @@ def crear(request):
             else:
                 context={
                     "formularioCurso": formulario,
-                    "cursosTotales": Curso.objects.all()
+                    "cursosTotales": Curso.objects.all(),
+                    "chats" : Chat.objects.filter(taller=cursoId).order_by('-created_at')[:10],
                 }
                 return render(request, "cursos/crearCurso.html", context)
         else:
@@ -49,7 +50,8 @@ def mostrar(request):
     inscritosEnCurso=Curso.objects.annotate(contador=Count("inscripcionCurso__id")).filter(activo=1).exclude(inscripcionCurso__participante__id=request.session["id"]).order_by("fecha")
     context={
         "misCursos":Inscripcion.objects.filter(participante__id=request.session["id"]),
-        "cursosActivosTotales":inscritosEnCurso
+        "cursosActivosTotales":inscritosEnCurso,
+        "inscripcionesTotales":Inscripcion.objects.filter(confirmado=1)
     }
     return render(request, "cursos/mostrar.html", context)
 
